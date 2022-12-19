@@ -25,6 +25,7 @@ locals {
 
 #  Google's own health checkers use a set of known address ranges
 resource "google_compute_firewall" "builtin_healthchecks" {
+  #checkov:skip=CKV2_GCP_12:Examples - All ports are allowed from builtin LB healtcheck subnets
   name          = "${var.name_prefix}vpc-builtin-healthchecks"
   network       = local.vpc
   direction     = "INGRESS"
@@ -52,6 +53,7 @@ resource "google_compute_firewall" "extlb" {
 
 # We need ssh to run our own verification code.
 resource "google_compute_firewall" "ssh" {
+  #checkov:skip=CKV_GCP_2:Examples - SSH used for testing purposes - https://docs.bridgecrew.io/docs/bc_gcp_networking_1
   name          = "${var.name_prefix}vpc-ssh"
   network       = local.vpc
   direction     = "INGRESS"
